@@ -1,5 +1,6 @@
 import unicodedata
 
+
 def get_stats(ids, counts=None):
     counts = {} if counts is None else counts
     for pair in zip(ids, ids[1:]):
@@ -23,24 +24,23 @@ def merge(ids, pair, idx):
         else:
             new_ids.append(ids[i])
             i += 1
-        
-    return new_ids
 
+    return new_ids
 
 
 def replace_control_characters(string: str):
     # dont print control characters
     chars = []
     for ch in string:
-        if unicodedata.category(ch)[0] != 'C':
+        if unicodedata.category(ch)[0] != "C":
             chars.append(ch)
         else:
-            chars.append(f"\\u{ord(ch):04x}") # escape
-    
+            chars.append(f"\\u{ord(ch):04x}")  # escape
+
     return "".join(chars)
 
 
 def render_token(token: bytes):
-    s = token.decode('utf-8', errors='replace')
+    s = token.decode("utf-8", errors="replace")
     s = replace_control_characters(s)
     return s
